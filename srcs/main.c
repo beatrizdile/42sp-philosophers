@@ -6,15 +6,12 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:45:57 by bedos-sa          #+#    #+#             */
-/*   Updated: 2023/11/12 15:10:05 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2023/11/12 15:29:35 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 #include <pthread.h>
-
-void *philo(/*void *param*/);
-void create_philos(int num);
 
 void *philo(/*void *param*/)
 {
@@ -33,6 +30,8 @@ void create_philos(int num)
 int main(int argc, char **argv)
 {
 	if (check_args(argc, argv))
-		printf("foi");
+	{
+		// create_philos(1);
+	}
 	return (0);
 }
