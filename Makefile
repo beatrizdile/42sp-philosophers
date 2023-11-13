@@ -6,7 +6,7 @@
 #    By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/12 10:33:46 by bedos-sa          #+#    #+#              #
-#    Updated: 2023/11/12 15:07:50 by bedos-sa         ###   ########.fr        #
+#    Updated: 2023/11/13 12:25:48 by bedos-sa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ LIBS = ./include
 OBJ_DIR = build/
 
 RM = rm -f
-FILES = main.c input_error.c
+FILES = main.c input_error.c one_philo.c free_all.c
 		
 OBJS = $(FILES:.c=.o)
 
@@ -45,7 +45,7 @@ run: all
 	./$(NAME)
 
 val: all
-	valgrind --suppressions=./local.supp --quiet --leak-check=full --show-leak-kinds=all ./$(NAME)
+	valgrind --quiet --leak-check=full --show-leak-kinds=all ./$(NAME) 2 2 3 4
 
 bonus: all
 

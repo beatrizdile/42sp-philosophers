@@ -6,7 +6,7 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 10:21:13 by bedos-sa          #+#    #+#             */
-/*   Updated: 2023/11/12 15:07:36 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2023/11/13 12:36:25 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,42 @@
 # define PHILO_H
 
 #include "libft.h"
+#include <pthread.h>
 #include <stdio.h>
+#include <sys/time.h>
+#include <time.h>
+
+typedef struct s_philo
+{
+	int				id;
+	int				id_fork_left;
+	int				id_fork_right;
+	_Atomic int		is_dead;
+	_Atomic int		num_meals;
+}					t_philo;
 
 typedef struct s_data
 {
-	int		num_of_philos;
-	int		time_to_die;
-	int		time_to_eat;
-	int		time_to_sleep;
-	int		num_times_to_eat;
+	int				num_of_philos;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				num_times_to_eat;
+	t_philo			*philos;
+	pthread_mutex_t	*forks;
+	pthread_mutex_t	print;
+	pthread_mutex_t	check_death;
+	_Atomic int		is_anyone_dead;
 }					t_data;
 
+
 // input_error
-int find_non_nums(char **argv);
 int check_args(int argc, char **argv);
+
+// one_philo
+void	one_philo();
+
+// free_all
+void free_for_finish(t_data *data);
 
 #endif
