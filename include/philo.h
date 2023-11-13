@@ -6,7 +6,7 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 10:21:13 by bedos-sa          #+#    #+#             */
-/*   Updated: 2023/11/13 12:36:25 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2023/11/13 17:37:29 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 #include <stdio.h>
 #include <sys/time.h>
 #include <time.h>
+#include <unistd.h>
+#include <pthread.h>
 
 typedef struct s_philo
 {
@@ -26,6 +28,7 @@ typedef struct s_philo
 	int				id_fork_right;
 	_Atomic int		is_dead;
 	_Atomic int		num_meals;
+	_Atomic int		last_meal_time;
 }					t_philo;
 
 typedef struct s_data
@@ -40,16 +43,27 @@ typedef struct s_data
 	pthread_mutex_t	print;
 	pthread_mutex_t	check_death;
 	_Atomic int		is_anyone_dead;
+	_Atomic long	start_time;
 }					t_data;
 
 
 // input_error
-int check_args(int argc, char **argv);
+int 		check_args(int argc, char **argv);
 
 // one_philo
-void	one_philo();
+void		one_philo();
 
 // free_all
-void free_for_finish(t_data *data);
+void 		free_for_finish(t_data *data);
+
+// data
+t_data 		*get_data();
+void 		set_data(int argc, char **argv);
+
+// time
+long int	get_time(void);
+
+//sleep
+void		 philo_sleep(int id);
 
 #endif

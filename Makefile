@@ -6,7 +6,7 @@
 #    By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/12 10:33:46 by bedos-sa          #+#    #+#              #
-#    Updated: 2023/11/13 12:25:48 by bedos-sa         ###   ########.fr        #
+#    Updated: 2023/11/13 17:40:26 by bedos-sa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,8 @@ LIBS = ./include
 OBJ_DIR = build/
 
 RM = rm -f
-FILES = main.c input_error.c one_philo.c free_all.c
+FILES = main.c input_error.c one_philo.c free_all.c data.c get_time.c \
+		sleep.c think.c
 		
 OBJS = $(FILES:.c=.o)
 

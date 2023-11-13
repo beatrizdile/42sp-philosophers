@@ -6,71 +6,47 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:45:57 by bedos-sa          #+#    #+#             */
-/*   Updated: 2023/11/13 12:28:18 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2023/11/13 17:52:01 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <pthread.h>
 
-void *philo(/*void *param*/)
+
+void *routine(void *philo)
 {
-	printf("philo created\n");
+	get_data()->is_anyone_dead = 2;
+	pthread_mutex_lock(&get_data()->print);
+	usleep(1000 * 500);
+	printf("%lums", get_time() - get_data()->start_time);
+	pthread_mutex_unlock(&get_data()->print);
+	// while(/*alguem morreu && ja comeu tudo*/)
+	// {
+		// philo_eat(); 
+		// philo_think();
+		philo_sleep(((t_philo *)philo)->id);
+	// }
 	return (NULL);
 }
 
-void create_philos(int num)
+void init_threads(void)
 {
-	printf("created %d philos\n", num);
-	pthread_t	thread1;
-	pthread_create(&thread1, NULL, philo, NULL);
-	pthread_join(thread1, NULL);
-}
+	pthread_t	 	*pthread;
+	const t_data	*data = get_data();
+	int				i;
 
-t_data *get_data(int argc, char **argv)
-{
-	t_data	*data;
-	int		i;
-
-	data = ft_calloc(1, sizeof(t_data));
-	data->num_of_philos = ft_atoi(argv[1]);
-	data->time_to_die = ft_atoi(argv[2]);
-	data->time_to_eat = ft_atoi(argv[3]);
-	data->time_to_sleep = ft_atoi(argv[4]);
-	if (argc == 6)
-		data->num_times_to_eat = ft_atoi(argv[5]);
-	else if (argc == 5)
-		data->num_times_to_eat = -1;
-	data->philos = ft_calloc(1, sizeof(t_philo) * data->num_of_philos);
-	data->forks = ft_calloc(1, sizeof(pthread_mutex_t) * data->num_of_philos);
-	i = 0;
-	while (i < data->num_of_philos)
-	{
-		data->philos[i].id = i + 1;
-		data->philos[i].id_fork_left = i;
-		data->philos[i].id_fork_right = (i + 1) % data->num_of_philos;
-		pthread_mutex_init(&data->forks[i], NULL);
-		i++;
-	}
-	return (data);
-}
-
-void routine(t_philo philo)
-{
-	(void) philo;
-	printf("routineee");
-	// while(/*alguem morreu && ja comeu tudo*/)
-	// {
-	// 	philo_think();
-	// 	philo_eat();
-	// 	philo_sleep();
-	// }
-	
+	pthread = ft_calloc(data->num_of_philos, sizeof(pthread_t));
+	i = -1;
+	while (++i < data->num_of_philos)
+		pthread_create(&pthread[i], NULL, &routine, (void *)&data->philos[i]);
+	i = -1;
+	while (++i < data->num_of_philos)
+		pthread_join(pthread[i], NULL);
+	free(pthread);
 }
 
 int main(int argc, char **argv)
 {
-	t_data *data;
 	int	flag;
 
 	flag = check_args(argc, argv);
@@ -78,9 +54,9 @@ int main(int argc, char **argv)
 		one_philo();
 	else if (flag == 2)
 	{
-		printf("not one philo, everything is fine");
-		data = get_data(argc, argv);
-		free_for_finish(data);
+		set_data(argc, argv);
+		init_threads();
+		free_for_finish(get_data());
 	}
 	return (0);
 }
