@@ -6,7 +6,7 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 17:26:13 by bedos-sa          #+#    #+#             */
-/*   Updated: 2023/11/16 14:20:20 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2023/11/16 17:07:54 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,5 @@ void philo_sleep(int id)
 	print_time();
 	printf(" %d is sleeping\n", id);
 	pthread_mutex_unlock(get_data()->print);
-	usleep(get_data()->time_to_sleep);
+	usleep(get_data()->time_to_sleep * 1000);
 }

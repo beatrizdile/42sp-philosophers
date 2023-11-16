@@ -6,7 +6,7 @@
 #    By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/12 10:33:46 by bedos-sa          #+#    #+#              #
-#    Updated: 2023/11/16 14:06:11 by bedos-sa         ###   ########.fr        #
+#    Updated: 2023/11/16 18:00:30 by bedos-sa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ OBJ_DIR = build/
 
 RM = rm -f
 FILES = main.c input_error.c one_philo.c free_all.c data.c get_time.c \
-		sleep.c think.c eat.c
+		sleep.c think.c eat.c check_death.c
 		
 OBJS = $(FILES:.c=.o)
 
@@ -46,10 +46,10 @@ run: all
 	./$(NAME)
 
 hel: all
-	valgrind --tool=helgrind ./$(NAME) 2 2 3 4
+	valgrind --tool=helgrind ./$(NAME) 2 1000 60 60
 
 val:
-	valgrind --quiet --leak-check=full --show-leak-kinds=all ./$(NAME) 2 2 3 4
+	valgrind --quiet --leak-check=full --show-leak-kinds=all ./$(NAME) 2 500 60 60
 
 bonus: all
 

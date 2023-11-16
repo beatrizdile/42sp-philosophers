@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   think.c                                            :+:      :+:    :+:   */
+/*   check_death.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/13 17:26:16 by bedos-sa          #+#    #+#             */
-/*   Updated: 2023/11/16 17:21:41 by bedos-sa         ###   ########.fr       */
+/*   Created: 2023/11/16 14:52:14 by bedos-sa          #+#    #+#             */
+/*   Updated: 2023/11/16 17:39:25 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void philo_think(int id)
+bool check_death(t_philo *philo)
 {
-	pthread_mutex_lock(get_data()->print);
-	print_time();
-	printf(" %d is thinking\n", id);
-	pthread_mutex_unlock(get_data()->print);
+	long long	time_since_last_meal;
+
+	time_since_last_meal = get_time() - philo->last_meal_time;
+	if (time_since_last_meal > get_data()->time_to_die)
+	{
+		philo->is_dead = true;
+		get_data()->is_anyone_dead = true;
+	}
+	return (philo->is_dead);
 }
