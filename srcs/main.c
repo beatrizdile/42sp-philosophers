@@ -6,35 +6,31 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:45:57 by bedos-sa          #+#    #+#             */
-/*   Updated: 2023/11/13 17:52:01 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2023/11/16 14:13:41 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-
 void *routine(void *philo)
 {
-	get_data()->is_anyone_dead = 2;
-	pthread_mutex_lock(&get_data()->print);
-	usleep(1000 * 500);
-	printf("%lums", get_time() - get_data()->start_time);
-	pthread_mutex_unlock(&get_data()->print);
-	// while(/*alguem morreu && ja comeu tudo*/)
-	// {
-		// philo_eat(); 
-		// philo_think();
+	// ja comeu o suficiente?
+	while(!(get_data()->is_anyone_dead))
+	{
+		philo_think(((t_philo *)philo)->id);
+		philo_eat(((t_philo *)philo));
 		philo_sleep(((t_philo *)philo)->id);
-	// }
+	}
 	return (NULL);
 }
 
 void init_threads(void)
 {
 	pthread_t	 	*pthread;
-	const t_data	*data = get_data();
+	t_data			*data;
 	int				i;
 
+	data = get_data();
 	pthread = ft_calloc(data->num_of_philos, sizeof(pthread_t));
 	i = -1;
 	while (++i < data->num_of_philos)
@@ -47,8 +43,10 @@ void init_threads(void)
 
 int main(int argc, char **argv)
 {
+	t_data *data;
 	int	flag;
 
+	data = get_data();
 	flag = check_args(argc, argv);
 	if (flag == 1)
 		one_philo();

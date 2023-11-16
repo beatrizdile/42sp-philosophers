@@ -6,7 +6,7 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 16:35:45 by bedos-sa          #+#    #+#             */
-/*   Updated: 2023/11/13 17:14:58 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2023/11/16 14:08:51 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void set_data(int argc, char **argv)
 		data->num_times_to_eat = ft_atoi(argv[5]);
 	else if (argc == 5)
 		data->num_times_to_eat = -1;
+	data->print = ft_calloc(1, sizeof(pthread_mutex_t));
+	pthread_mutex_init(data->print, NULL);
 	data->philos = ft_calloc(1, sizeof(t_philo) * data->num_of_philos);
 	data->forks = ft_calloc(1, sizeof(pthread_mutex_t) * data->num_of_philos);
 	i = -1;

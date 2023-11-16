@@ -6,7 +6,7 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 10:21:13 by bedos-sa          #+#    #+#             */
-/*   Updated: 2023/11/13 17:37:29 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2023/11/16 14:16:09 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_data
 	int				num_times_to_eat;
 	t_philo			*philos;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	print;
+	pthread_mutex_t	*print;
 	pthread_mutex_t	check_death;
 	_Atomic int		is_anyone_dead;
 	_Atomic long	start_time;
@@ -56,6 +56,9 @@ void		one_philo();
 // free_all
 void 		free_for_finish(t_data *data);
 
+// print
+void 		print_time();
+
 // data
 t_data 		*get_data();
 void 		set_data(int argc, char **argv);
@@ -63,7 +66,13 @@ void 		set_data(int argc, char **argv);
 // time
 long int	get_time(void);
 
-//sleep
-void		 philo_sleep(int id);
+// sleep
+void		philo_sleep(int id);
+
+// think
+void 		philo_think(int id);
+
+// eat
+void 		philo_eat(t_philo *philo);
 
 #endif

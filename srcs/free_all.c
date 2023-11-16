@@ -6,7 +6,7 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:14:37 by bedos-sa          #+#    #+#             */
-/*   Updated: 2023/11/13 16:35:31 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2023/11/16 14:26:57 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,4 +16,5 @@ void free_for_finish(t_data *data)
 {
 	free(data->philos);
 	free(data->forks);
+	free(data->print);
 }
