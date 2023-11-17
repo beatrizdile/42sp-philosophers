@@ -6,7 +6,7 @@
 #    By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/12 10:33:46 by bedos-sa          #+#    #+#              #
-#    Updated: 2023/11/17 13:05:37 by bedos-sa         ###   ########.fr        #
+#    Updated: 2023/11/17 15:33:38 by bedos-sa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ vpath %.c bonus
 NAME = philo
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I$(LIBS) -O3 -g3 
+CFLAGS = -Wall -Wextra -Werror -I$(LIBS) -g3
 
 LIBS = ./include
 OBJ_DIR = build/

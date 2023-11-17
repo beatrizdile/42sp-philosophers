@@ -6,7 +6,7 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:45:57 by bedos-sa          #+#    #+#             */
-/*   Updated: 2023/11/17 13:17:25 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2023/11/17 18:20:32 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,44 +14,50 @@
 
 void	*routine(void *philo)
 {
-	((t_philo *)philo)->last_meal_time = get_time();
-	while (!(get_data()->is_anyone_dead) && !(((t_philo *)philo)->is_dead)
-		&& !eat_enough(philo))
+	t_philo *this_philo;
+
+	this_philo = (t_philo *)philo;
+	this_philo->last_meal_time = get_time();
+	while (!(get_data()->stop_all))
 	{
-		philo_think(((t_philo *)philo)->id);
-		if (check_death((t_philo *)philo) || get_data()->is_anyone_dead)
+		philo_think(this_philo->id);
+		if (get_data()->stop_all)
 			break ;
-		philo_eat(((t_philo *)philo));
-		if (check_death((t_philo *)philo) || get_data()->is_anyone_dead)
+		philo_eat(this_philo);
+		if (get_data()->stop_all)
 			break ;
-		philo_sleep(((t_philo *)philo)->id);
-		if (check_death((t_philo *)philo) || get_data()->is_anyone_dead)
+		philo_sleep(this_philo->id);
+		if (get_data()->stop_all)
 			break ;
 	}
-	if (!get_data()->printed_die && !eat_enough(philo))
-	{
-		pthread_mutex_lock(get_data()->print);
-		print_time();
-		printf(" %d died\n", ((t_philo *)philo)->id);
-		pthread_mutex_unlock(get_data()->print);
-		get_data()->printed_die = 1;
-	}
+	// printf("stop all %d", get_data()->stop_all);
 	return (NULL);
 }
 
 void	*monitoring(void *ptr)
 {
 	int	i;
-
+	t_philo *philos;
+	t_data *data;
+	
+	data = get_data();
 	ptr = NULL;
-	while (!(get_data()->is_anyone_dead))
+	philos = data->philos;
+	while (!(data->stop_all))
 	{
-		i = 0;
-		while (i < get_data()->num_of_philos)
+		i = -1;
+		while (++i < data->num_of_philos)
 		{
-			if (check_death(&get_data()->philos[i]))
-				get_data()->is_anyone_dead = 1;
-			i++;
+			if (check_death(&philos[i]))
+			{
+				data->stop_all = true;
+				pthread_mutex_lock(data->print);
+				print_time();
+				printf(" %d died\n", philos[i].id);
+				pthread_mutex_unlock(data->print);
+			}
+			else if (philos[i].has_eaten_enough)
+				everyone_has_eaten_enough(data);
 		}
 	}
 	return (ptr);
@@ -99,3 +105,5 @@ int	main(int argc, char **argv)
 	}
 	return (0);
 }
+
+// tudo dentro da pasta philo

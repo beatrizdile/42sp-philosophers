@@ -6,7 +6,7 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 16:35:45 by bedos-sa          #+#    #+#             */
-/*   Updated: 2023/11/17 13:06:57 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2023/11/17 18:06:24 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@ void	set_data(int argc, char **argv)
 	int		i;
 
 	data = get_data();
+	data->stop_all = false;
 	data->start_time = get_time();
 	data->num_of_philos = ft_atoi(argv[1]);
-	data->time_to_die = ft_atoi(argv[2]);
+	data->time_to_die = ft_atoi(argv[2]) + TOLERANCE;
 	data->time_to_eat = ft_atoi(argv[3]);
 	data->time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
