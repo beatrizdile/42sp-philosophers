@@ -6,22 +6,20 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 16:35:45 by bedos-sa          #+#    #+#             */
-/*   Updated: 2023/11/16 14:08:51 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2023/11/17 13:06:57 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-
-t_data *get_data()
+t_data	*get_data(void)
 {
-	static t_data data;
+	static t_data	data;
 
 	return (&data);
 }
 
-
-void set_data(int argc, char **argv)
+void	set_data(int argc, char **argv)
 {
 	t_data	*data;
 	int		i;

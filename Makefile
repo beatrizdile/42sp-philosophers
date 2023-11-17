@@ -6,7 +6,7 @@
 #    By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/12 10:33:46 by bedos-sa          #+#    #+#              #
-#    Updated: 2023/11/16 18:00:30 by bedos-sa         ###   ########.fr        #
+#    Updated: 2023/11/17 13:05:37 by bedos-sa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,16 +16,15 @@ vpath %.c bonus
 NAME = philo
 
 CC = cc
-FLAGS = $(LIBFT)/libft.a
 CFLAGS = -Wall -Wextra -Werror -I$(LIBS) -O3 -g3 
 
-LIBFT = ./libft
 LIBS = ./include
 OBJ_DIR = build/
 
 RM = rm -f
 FILES = main.c input_error.c one_philo.c free_all.c data.c get_time.c \
-		sleep.c think.c eat.c check_death.c
+		sleep.c think.c eat.c check_death.c ft_atoi.c ft_calloc.c ft_isdigit.c \
+		ft_strlen.c ft_memset.c
 		
 OBJS = $(FILES:.c=.o)
 
@@ -38,7 +37,6 @@ mkdir_obj:
 	@mkdir -p $(OBJ_DIR)
 
 $(NAME): $(addprefix $(OBJ_DIR), $(OBJS))
-	@make -C $(LIBFT) --silent
 	@$(CC) $(addprefix $(OBJ_DIR), $(OBJS)) $(FLAGS) -o $(NAME) -pthread
 	@echo "\033[0;32mSUCCESS!\033[0m"
 
@@ -54,12 +52,10 @@ val:
 bonus: all
 
 clean:
-	@make clean -C $(LIBFT) --silent
 	@$(RM) $(addprefix $(OBJ_DIR), $(OBJS))
 	@echo "\033[0;36mBUILD DIRECTORY CLEAN!\033[0m"
 
 fclean: clean
-	@make fclean -C $(LIBFT) --silent
 	@$(RM) $(NAME)
 	@echo "\033[0;31mBINARY DESTROYED!\033[0m"
 

@@ -1,29 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/08 13:30:50 by bedos-sa          #+#    #+#             */
-/*   Updated: 2023/07/12 17:12:03 by bedos-sa         ###   ########.fr       */
+/*   Created: 2023/05/01 09:55:20 by bedos-sa          #+#    #+#             */
+/*   Updated: 2023/11/17 13:00:27 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+// RETURN VALUE: The values returned are nonzero if the character c falls into 
+// the tested class, and a zero value if not.
 
-char	*ft_strjoin(char const *s1, char const *s2)
+#include "philo.h"
+
+int	ft_isdigit(int c)
 {
-	size_t	s1_len;
-	size_t	s2_len;
-	char	*dest;
-
-	s1_len = ft_strlen((char *)s1);
-	s2_len = ft_strlen((char *)s2);
-	dest = (char *)malloc((s1_len + s2_len + 1) * sizeof(char));
-	if (!dest)
-		return (NULL);
-	ft_strlcpy(dest, s1, s1_len + 1);
-	ft_strlcpy(dest + s1_len, s2, s2_len + 1);
-	return (dest);
+	if ((c >= '0' && c <= '9'))
+		return (1);
+	else
+		return (0);
 }

@@ -1,35 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strmapi.c                                       :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/09 17:33:33 by bedos-sa          #+#    #+#             */
-/*   Updated: 2023/07/12 17:13:28 by bedos-sa         ###   ########.fr       */
+/*   Created: 2023/05/01 15:37:14 by bedos-sa          #+#    #+#             */
+/*   Updated: 2023/11/17 13:05:00 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+// To use the elements inside the returned array s: (unsigned char *)s[i]
 
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+#include "philo.h"
+
+void	*ft_memset(void *s, int c, size_t x)
 {
-	int		i;
-	int		s_len;
-	char	*dest;
+	size_t	i;
 
-	if (!s)
-		return (NULL);
 	i = 0;
-	s_len = ft_strlen((char *)s);
-	dest = (char *)malloc(1 + s_len * sizeof(char));
-	if (!dest)
-		return (NULL);
-	while (s[i])
+	while (i < x)
 	{
-		dest[i] = (*f)(i, s[i]);
+		((unsigned char *)s)[i] = c;
 		i++;
 	}
-	dest[i] = '\0';
-	return (dest);
+	return (s);
 }

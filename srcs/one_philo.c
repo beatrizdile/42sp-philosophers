@@ -6,13 +6,13 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 11:56:37 by bedos-sa          #+#    #+#             */
-/*   Updated: 2023/11/16 17:57:58 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2023/11/17 13:07:15 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	one_philo()
+void	one_philo(void)
 {
 	print_time();
 	printf(" 1 got fork\n");

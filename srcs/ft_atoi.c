@@ -1,34 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcmp.c                                        :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/04 17:04:32 by bedos-sa          #+#    #+#             */
-/*   Updated: 2023/05/13 15:48:04 by bedos-sa         ###   ########.fr       */
+/*   Created: 2023/05/05 10:46:31 by bedos-sa          #+#    #+#             */
+/*   Updated: 2023/11/17 13:00:27 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "philo.h"
 
-int	ft_memcmp(const void *s1, const void *s2, size_t n)
+int	ft_atoi(const char *nptr)
 {
-	size_t			c;
-	unsigned char	*s1_chr;
-	unsigned char	*s2_chr;
+	int					i;
+	int					sign;
+	unsigned long int	res;
 
-	if (n <= 0)
-		return (0);
-	s1_chr = (unsigned char *)s1;
-	s2_chr = (unsigned char *)s2;
-	c = 0;
-	while (c < n)
+	i = 0;
+	sign = 1;
+	res = 0;
+	while (nptr[i] == 32 || (nptr[i] >= 9 && nptr[i] <= 13))
+		i++;
+	if (nptr[i] == '-')
 	{
-		if (s1_chr[c] != s2_chr[c])
-			return (s1_chr[c] - s2_chr[c]);
-		else
-			c++;
+		sign = -1;
+		i++;
 	}
-	return (0);
+	else if (nptr[i] == '+')
+		i++;
+	while (ft_isdigit(nptr[i]))
+	{
+		res *= 10;
+		res = res + (nptr[i] - '0');
+		i++;
+	}
+	return ((int)res * sign);
 }

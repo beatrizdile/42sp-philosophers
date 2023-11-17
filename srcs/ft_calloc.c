@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memchr.c                                        :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/04 16:29:24 by bedos-sa          #+#    #+#             */
-/*   Updated: 2023/05/15 10:51:20 by bedos-sa         ###   ########.fr       */
+/*   Created: 2023/05/05 15:19:26 by bedos-sa          #+#    #+#             */
+/*   Updated: 2023/11/17 13:00:27 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "philo.h"
 
-void	*ft_memchr(const void *s, int c, size_t n)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	size_t			i;
-	unsigned char	ch;
-	unsigned char	*str;	
+	void	*ptr;
+	size_t	i;
 
-	i = 0;
-	ch = (unsigned char)c;
-	str = (unsigned char *)s;
-	while (i < n)
-	{
-		if (str[i] == ch)
-			return ((void *)&str[i]);
-		i++;
-	}
-	return (NULL);
+	i = nmemb * size;
+	if (i != 0 && i / size != nmemb)
+		return (NULL);
+	ptr = (void *)malloc(nmemb * size);
+	if (ptr == NULL)
+		return (NULL);
+	ft_memset(ptr, 0, nmemb * size);
+	return (ptr);
 }

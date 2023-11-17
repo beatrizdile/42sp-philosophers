@@ -6,13 +6,13 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:52:14 by bedos-sa          #+#    #+#             */
-/*   Updated: 2023/11/16 17:39:25 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2023/11/17 13:06:53 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-bool check_death(t_philo *philo)
+bool	check_death(t_philo *philo)
 {
 	long long	time_since_last_meal;
 
