@@ -6,7 +6,7 @@
 #    By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/12 10:33:46 by bedos-sa          #+#    #+#              #
-#    Updated: 2023/11/17 15:33:38 by bedos-sa         ###   ########.fr        #
+#    Updated: 2023/11/17 19:03:28 by bedos-sa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ vpath %.c bonus
 NAME = philo
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I$(LIBS) -g3
+CFLAGS = -Wall -Wextra -Werror -I$(LIBS) -fsanitize=address -g3
 
 LIBS = ./include
 OBJ_DIR = build/
@@ -48,8 +48,6 @@ hel: all
 
 val:
 	valgrind --quiet --leak-check=full --show-leak-kinds=all ./$(NAME) 2 500 60 60
-
-bonus: all
 
 clean:
 	@$(RM) $(addprefix $(OBJ_DIR), $(OBJS))

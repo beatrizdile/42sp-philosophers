@@ -6,7 +6,7 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:45:57 by bedos-sa          #+#    #+#             */
-/*   Updated: 2023/11/17 18:20:32 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2023/11/17 18:44:42 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,14 @@ void	*monitoring(void *ptr)
 			if (check_death(&philos[i]))
 			{
 				data->stop_all = true;
-				pthread_mutex_lock(data->print);
-				print_time();
-				printf(" %d died\n", philos[i].id);
-				pthread_mutex_unlock(data->print);
+				if (!data->printed_die)
+				{
+					pthread_mutex_lock(data->print);
+					print_time();
+					printf(" %d died\n", philos[i].id);
+					pthread_mutex_unlock(data->print);
+					data->printed_die = true;
+				}
 			}
 			else if (philos[i].has_eaten_enough)
 				everyone_has_eaten_enough(data);
