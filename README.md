@@ -23,10 +23,6 @@ To get started with the Philosophers project, follow these steps:
 ```bash
 git clone git@github.com:beatrizdile/42sp-philosophers.git
 ```
-2. Change into the project directory:
-```bash
-cd philo
-```
 3. Build the project:
 ```bash
 make
