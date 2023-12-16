@@ -9,7 +9,7 @@
   ![philosophers](https://github.com/beatrizdile/beatrizdile-utils/blob/master/philosophersm.png)
 </h2>
 
-The philosophers project is designed to explore parallel computing and synchronization techniques. In this project, it was implemented the dining philosophers problem, a classic synchronization problem in computer science.
+The philosophers project is designed to explore concurrent computing and synchronization techniques. In this project, it was implemented the dining philosophers problem, a classic synchronization problem in computer science.
 
 ## Description
 
