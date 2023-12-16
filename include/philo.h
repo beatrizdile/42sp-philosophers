@@ -6,7 +6,7 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 10:21:13 by bedos-sa          #+#    #+#             */
-/*   Updated: 2023/11/17 18:44:47 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2023/11/17 20:22:12 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@
 # include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <string.h>
 # include <sys/time.h>
 # include <time.h>
 # include <unistd.h>
 
-#define TOLERANCE 1
+# define TOLERANCE 1
 
 typedef struct s_philo
 {
@@ -87,6 +88,5 @@ int					ft_atoi(const char *nptr);
 void				*ft_calloc(size_t nmemb, size_t size);
 int					ft_isdigit(int c);
 size_t				ft_strlen(char *str);
-void				*ft_memset(void *s, int c, size_t x);
 
 #endif

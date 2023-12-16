@@ -6,7 +6,7 @@
 #    By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/12 10:33:46 by bedos-sa          #+#    #+#              #
-#    Updated: 2023/11/17 19:03:28 by bedos-sa         ###   ########.fr        #
+#    Updated: 2023/11/17 19:21:34 by bedos-sa         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ vpath %.c bonus
 NAME = philo
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I$(LIBS) -fsanitize=address -g3
+CFLAGS = -Wall -Wextra -Werror -I$(LIBS) -g3
 
 LIBS = ./include
 OBJ_DIR = build/
@@ -24,7 +24,7 @@ OBJ_DIR = build/
 RM = rm -f
 FILES = main.c input_error.c one_philo.c free_all.c data.c get_time.c \
 		sleep.c think.c eat.c check_death.c ft_atoi.c ft_calloc.c ft_isdigit.c \
-		ft_strlen.c ft_memset.c
+		ft_strlen.c
 		
 OBJS = $(FILES:.c=.o)
 

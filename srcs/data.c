@@ -6,7 +6,7 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 16:35:45 by bedos-sa          #+#    #+#             */
-/*   Updated: 2023/11/17 18:40:37 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2023/11/17 19:22:28 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,28 @@ t_data	*get_data(void)
 	return (&data);
 }
 
+void	init_philos(void)
+{
+	const t_data	*data;
+	int				i;
+
+	data = get_data();
+	i = -1;
+	while (++i < data->num_of_philos)
+	{
+		data->philos[i].id = i + 1;
+		data->philos[i].id_fork_left = i;
+		data->philos[i].id_fork_right = (i + 1) % data->num_of_philos;
+		pthread_mutex_init(&data->forks[i], NULL);
+	}
+}
+
 void	set_data(int argc, char **argv)
 {
 	t_data	*data;
-	int		i;
 
 	data = get_data();
-	data->stop_all = false;
-	data->printed_die = false;
+	memset((void *)data, 0, sizeof(t_data));
 	data->start_time = get_time();
 	data->num_of_philos = ft_atoi(argv[1]);
 	data->time_to_die = ft_atoi(argv[2]) + TOLERANCE;
@@ -40,12 +54,5 @@ void	set_data(int argc, char **argv)
 	pthread_mutex_init(data->print, NULL);
 	data->philos = ft_calloc(1, sizeof(t_philo) * data->num_of_philos);
 	data->forks = ft_calloc(1, sizeof(pthread_mutex_t) * data->num_of_philos);
-	i = -1;
-	while (++i < data->num_of_philos)
-	{
-		data->philos[i].id = i + 1;
-		data->philos[i].id_fork_left = i;
-		data->philos[i].id_fork_right = (i + 1) % data->num_of_philos;
-		pthread_mutex_init(&data->forks[i], NULL);
-	}
+	init_philos();
 }

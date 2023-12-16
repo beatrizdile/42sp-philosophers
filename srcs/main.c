@@ -6,7 +6,7 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:45:57 by bedos-sa          #+#    #+#             */
-/*   Updated: 2023/11/17 18:44:42 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2023/11/17 19:25:55 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	*routine(void *philo)
 {
-	t_philo *this_philo;
+	t_philo	*this_philo;
 
 	this_philo = (t_philo *)philo;
 	this_philo->last_meal_time = get_time();
@@ -30,16 +30,27 @@ void	*routine(void *philo)
 		if (get_data()->stop_all)
 			break ;
 	}
-	// printf("stop all %d", get_data()->stop_all);
 	return (NULL);
+}
+
+void	print_die(t_philo *philos, int i)
+{
+	t_data	*data;
+
+	data = get_data();
+	pthread_mutex_lock(data->print);
+	print_time();
+	printf(" %d died\n", philos[i].id);
+	pthread_mutex_unlock(data->print);
+	data->printed_die = true;
 }
 
 void	*monitoring(void *ptr)
 {
-	int	i;
-	t_philo *philos;
-	t_data *data;
-	
+	int		i;
+	t_philo	*philos;
+	t_data	*data;
+
 	data = get_data();
 	ptr = NULL;
 	philos = data->philos;
@@ -52,13 +63,7 @@ void	*monitoring(void *ptr)
 			{
 				data->stop_all = true;
 				if (!data->printed_die)
-				{
-					pthread_mutex_lock(data->print);
-					print_time();
-					printf(" %d died\n", philos[i].id);
-					pthread_mutex_unlock(data->print);
-					data->printed_die = true;
-				}
+					print_die(philos, i);
 			}
 			else if (philos[i].has_eaten_enough)
 				everyone_has_eaten_enough(data);
@@ -109,5 +114,3 @@ int	main(int argc, char **argv)
 	}
 	return (0);
 }
-
-// tudo dentro da pasta philo

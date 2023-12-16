@@ -6,7 +6,7 @@
 /*   By: bedos-sa <bedos-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 17:05:40 by bedos-sa          #+#    #+#             */
-/*   Updated: 2023/11/17 18:54:18 by bedos-sa         ###   ########.fr       */
+/*   Updated: 2023/11/17 20:33:55 by bedos-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 void	eat_even(t_philo *philo)
 {
-	const t_data *data = get_data();
-	
+	const t_data	*data;
+
+	data = get_data();
 	pthread_mutex_lock(&data->forks[philo->id_fork_right]);
 	pthread_mutex_lock(data->print);
 	if (!data->printed_die)
@@ -42,8 +43,9 @@ void	eat_even(t_philo *philo)
 
 void	eat_odd(t_philo *philo)
 {
-	const t_data *data = get_data();
+	const t_data	*data;
 
+	data = get_data();
 	pthread_mutex_lock(&data->forks[philo->id_fork_left]);
 	pthread_mutex_lock(data->print);
 	if (!data->printed_die)
@@ -70,25 +72,31 @@ void	eat_odd(t_philo *philo)
 
 void	philo_eat(t_philo *philo)
 {
-	const int times_to_eat = get_data()->num_times_to_eat;
+	const t_data	*data;
+	int				times_to_eat;
+
+	data = get_data();
+	times_to_eat = data->num_times_to_eat;
 	if (times_to_eat != -1)
 		philo->has_eaten_enough = (philo->num_meals >= times_to_eat);
-	if (philo->id % 2 == 0)
-		eat_even(philo);
-	else
+	if (philo->id % 2 != 0 && philo->id != data->num_of_philos)
 		eat_odd(philo);
+	else
+		eat_even(philo);
 }
 
 void	everyone_has_eaten_enough(t_data *data)
 {
-	int				i;
-	const int		philo_num = data->num_of_philos;
-	const t_philo	*philos = data->philos;
+	int		i;
+	int		philo_num;
+	t_philo	*philos;
 
+	philo_num = data->num_of_philos;
+	philos = data->philos;
 	i = 0;
-	while(i < philo_num)
+	while (i < philo_num)
 	{
-		if(!philos[i].has_eaten_enough)
+		if (!philos[i].has_eaten_enough)
 			return ;
 		i++;
 	}
